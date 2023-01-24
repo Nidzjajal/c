@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<conio.h>
 #include<process.h>
-
+# define cln fflush(stdin)
 
 void create();
 void insertlast();
@@ -16,21 +16,22 @@ void deletespecific();
 
 struct linklist
 {
-	 int data;
-	 struct linklist* next;
+	char data;
+	struct linklist *next;
 };
 struct linklist*first,*temp,*newnode;
 int flag=0;
 void main()
 {
-	int choice ;
-	do{
+	int choice;
+	do
+	{
 		clrscr();
 		printf("\n press1:create\n\t2:insert first\n\t3:insert last\n\t4:insertbetwen\n\t5:display\n\t6:search\n\t7:edit\n\t8:deletelast\n\t9:deletefirst\n\t10:deletespecific\n\t0:exit\n\t");
-
-		printf("\n ent your choice:");
+		printf("\n enter your choice:");
 		scanf("%d",&choice);
-		switch (choice)
+
+		switch(choice)
 		{
 			case 1:
 				create();
@@ -91,8 +92,8 @@ void create()
 	for(i=0;i<noe;i++)
 	{
 		newnode=(struct linklist*)malloc (sizeof(struct linklist*));
-		printf("\n ent ele:");
-		scanf("%d",&newnode->data);
+		printf("\n ent ele:"); cln;
+		scanf("%c",&newnode->data);
 		newnode->next=NULL;
 		if(first==NULL)
 		{
@@ -113,8 +114,8 @@ void create()
 void insertlast()
 {
 	newnode=(struct linklist *)malloc(sizeof(struct linklist *));
-	printf("\n enter element");
-	scanf("%d",&newnode->data);
+	printf("\n enter element");cln;
+	scanf("%c",&newnode->data);
 	newnode ->next=NULL;
 	if(first==NULL)
 	{
@@ -130,26 +131,26 @@ void insertlast()
 void insertfirst()
 {
 	newnode=(struct linklist *)malloc(sizeof(struct linklist *));
-	printf("\n which element do you insert?");
-	scanf("%d",&newnode->data);
+	printf("\n which element do you insert?");cln;
+	scanf("%c",&newnode->data);
+
 	newnode->next=first;
 	first=newnode;
 }
 void insertbetwen()
 {
-	if(first!=NULL)// 1 element
-	{
+		 clrscr();
 		search();
 		if(flag==1)
 		{
 			newnode=(struct linklist *)malloc(sizeof(struct linklist *));
-			printf("\n enter new element :");
-			scanf("%d",&newnode->data);
+			printf("\n enter new element :");cln;
+			scanf("%c",&newnode->data);
 			newnode->next=temp->next;
 			temp->next=newnode;
 
 		}
-	}
+
 }
 void display()
 {
@@ -159,7 +160,7 @@ void display()
 
 	for(temp=first;temp!=NULL;temp=temp->next)
 	{
-		printf("%d->",temp->data);
+	    cln;	printf("%c->",temp->data);
 	}
 	printf("NULL");
 }
@@ -167,8 +168,9 @@ void search()
 {
 	int se;
 	printf("\n which element u want to search?");
-	scanf("%d",&se);
-	for(temp=first ;temp!=NULL;temp=temp->next)
+	cln;
+	scanf("%c",&se);
+	for(temp=first;temp!=NULL;temp=temp->next)
 	{
 		if(se==temp->data)
 		{
@@ -189,8 +191,8 @@ void edit()
 	search();
 	if(flag==1)
 	{
-		printf("\n enter value you want to change:");
-		scanf("%d",&temp->data);
+		printf("\n enter value you want to change:");cln;
+		scanf("%c",&temp->data);
 	}
 }
 void deletelast()
@@ -214,7 +216,8 @@ void deletelast()
 		{
 			;// do nothing
 		}
-		printf("%d is free",temp->next->data);
+			cln;
+		printf("%c is free",temp->next->data);
 		free(temp->next->next);
 		temp->next=NULL;
 		return;
@@ -245,8 +248,8 @@ void deletespecific()
 		printf("\n list is empty");
 		return;
 	}
-	printf("\n which element you want to delete?");
-	scanf("%d",&de);
+	printf("\n which element you want to delete?");cln;
+	scanf("%c",&de);
 	if(first->data==de)//1 element is deleted
 	{
 		deletefirst();
@@ -259,9 +262,14 @@ void deletespecific()
 			printf("found");
 			flag=1;
 			dummy=temp->next;
-			temp->next=dummy->next;
-			printf("%d id delet",dummy->data);
+			temp->next=dummy->next;cln;
+			printf("%c is deleted",dummy->data);
 			free(dummy);
 		}
 	}
+	if(flag==0)
+	{
+		printf("not found");
+	}
+
 }
